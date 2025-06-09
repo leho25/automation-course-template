@@ -4,9 +4,10 @@
     <test thread-count="1" parallel="classes" name="ConfigTest">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class  name="com.Bai18_TabTest">
+            <class  name="com.Bai19_ICEHRM_LoginTest">
                 <methods>
-                    <include name="tabTest"/>
+                    <include name="loginTest"/>
+                    <include name="dropDownProvide"/>
                 </methods>
             </class>
         </classes>
