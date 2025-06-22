@@ -13,7 +13,7 @@ import com.utils.BasicTest;
 import com.utils.Utils;
 
 public class Bai20_ShoppingCartTest extends BasicTest{
-    // @Test
+    @Test
     public void shoppingCartTest() {
         // navigate
         // login
