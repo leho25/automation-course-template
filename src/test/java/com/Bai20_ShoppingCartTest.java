@@ -10,7 +10,7 @@ import org.testng.Assert;
 import com.utils.BasicTest;
 
 public class Bai20_ShoppingCartTest extends BasicTest{
-    // @Test
+    @Test
     public void shoppingCartTest() {
         // navigate
         // login
