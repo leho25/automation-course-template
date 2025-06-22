@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import com.config.Constains;
 import com.pages.CartPage;
-import com.pages.HomeDetailPage;
+import com.pages.ProductDetailPage;
 import com.pages.HomePage;
 import com.pages.LoginPage;
 import com.utils.BasicTest;
@@ -16,7 +16,7 @@ public class Bai22_ShoppingCartTest extends BasicTest {
     public void shoppingCartTest() {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
-        HomeDetailPage homeDetailPage = new HomeDetailPage(driver);
+        ProductDetailPage homeDetailPage = new ProductDetailPage(driver);
         CartPage cartPage = new CartPage(driver);
         String url = Constains.URL;
 

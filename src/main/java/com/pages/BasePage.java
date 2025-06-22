@@ -36,12 +36,12 @@ public class BasePage {
         return this.wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
-    public WebElement waiElementClickable(By by) {
+    public WebElement waitElementClickable(By by) {
         return this.wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public void clickElement(By by) {
-        waiElementClickable(by).click();
+        waitElementClickable(by).click();
     }
 
     public void enterText(By by, String text) {
