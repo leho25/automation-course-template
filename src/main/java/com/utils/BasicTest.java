@@ -12,9 +12,8 @@ import org.testng.annotations.BeforeMethod;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.concurrent.TimeUnit;
 
-
 public abstract class BasicTest {
-    
+
     public static final Logger logger = LogManager.getLogger();
     protected static WebDriver driver;
     protected static WebDriverWait wait;
@@ -28,17 +27,22 @@ public abstract class BasicTest {
         // ChromeOptions options = new ChromeOptions();
         // System.setProperty("webdriver.chrome.driver", driverPath);
         // driver = new ChromeDriver(options);
+        // Headless mode
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         // Maximize the browser
         driver.manage().window().maximize();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        // driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 15);
         action = new Actions(driver);
     }
 
     @AfterMethod
-    public void postCondition(){
+    public void postCondition() {
         // Quit the Browser
         driver.quit();
     }
