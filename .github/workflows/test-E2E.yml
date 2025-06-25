@@ -26,4 +26,4 @@ jobs:
               
             - name: Run E2E tests
               run: |
-                mvn clean test -Dtest=com.Bai22_ShoppingCartTest
+                mvn clean test -Dtest=com.Bai20_ShoppingCartTest
