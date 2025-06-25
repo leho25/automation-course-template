@@ -1,0 +1,29 @@
+name: Test E2E
+on:
+    push:
+        branhches:
+            - "**"
+jobs:
+    test-e2e:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out
+              uses: actions/checkout@v3
+
+            - name: Set up JDK
+              uses: actions/setup-java@2
+              with:
+                distribution: 'temurin'
+                java-version: '17'
+            
+            - name: Set up maven
+              run: sudo apt-get install -y maven
+
+            - name: Chrome
+              run: |
+                sudo apt-get update
+                sudo apt-get --only-upgrade install -y google-chrome-stable
+              
+            - name: Run E2E tests
+              run: |
+                mvn clean test -Dtest=com.Bai22_ShoppingCartTest
