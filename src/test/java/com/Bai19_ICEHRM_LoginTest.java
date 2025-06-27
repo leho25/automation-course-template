@@ -2,6 +2,8 @@ package com;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -35,14 +37,18 @@ public class Bai19_ICEHRM_LoginTest extends BasicTest {
         String url = "https://bantheme.xyz/hathanhauto/";
         driver.get(url);
         // Select dropdown provide
-        WebElement selectDropdownProvide = driver.findElement(By.xpath("//select[@id='provide']"));
-        selectDropdownProvide.click();
+        // WebElement selectDropdownProvide =
+        // driver.findElement(By.xpath("//select[@id='provide']"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='provide']"))).click();
+        // selectDropdownProvide.click();
         // Select provide
-        WebElement selectProvide = driver.findElement(By.xpath("//option[contains(text(),'" + provide + "')]"));
+        WebElement selectProvide = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("//option[contains(text(),'" + provide + "')]")));
         selectProvide.click();
         Utils.hardWait(2000);
         // Verify product type from provide
-        WebElement textProductType = driver.findElement(By.xpath("//select[@id='productType']"));
+        WebElement textProductType = wait
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//select[@id='productType']"))));
         Assert.assertTrue(textProductType.getText().contains(productType));
     }
 
