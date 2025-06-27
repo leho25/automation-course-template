@@ -30,6 +30,6 @@ public class Bai22_ShoppingCartTest extends BasicTest {
         homeDetailPage.selectOptionDropDown("England");
         homeDetailPage.clickAddCart();
 
-        Assert.assertTrue(cartPage.messageAddToCart().contains("đã được thêm vào giỏ hàng "));
+        Assert.assertTrue(cartPage.messageAddToCart().contains("đã được thêm vào giỏ hàng"));
     }
 }
