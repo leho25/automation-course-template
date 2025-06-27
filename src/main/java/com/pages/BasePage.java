@@ -1,6 +1,7 @@
 package com.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,6 +43,11 @@ public class BasePage {
 
     public void clickElement(By by) {
         waitElementClickable(by).click();
+    }
+
+    public void clickElementJS(By by) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].click();", waitElementClickable(by));
     }
 
     public void enterText(By by, String text) {

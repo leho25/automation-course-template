@@ -27,15 +27,16 @@ public abstract class BasicTest {
         // ChromeOptions options = new ChromeOptions();
         // System.setProperty("webdriver.chrome.driver", driverPath);
         // driver = new ChromeDriver(options);
+        WebDriverManager.chromedriver().setup();
         // Headless mode
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
-        WebDriverManager.chromedriver().setup();
+        options.addArguments("--window-size=1366,768");
+
         driver = new ChromeDriver(options);
         // Maximize the browser
-        driver.manage().window().maximize();
+        // driver.manage().window().maximize();
         // driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 15);
         action = new Actions(driver);

@@ -28,7 +28,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage clickLoginButton() {
-        clickElement(loginButton);
+        clickElementJS(loginButton);
         return this;
     }
 
