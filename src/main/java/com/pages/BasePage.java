@@ -1,20 +1,25 @@
 package com.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
+    public Actions actions;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 15);
+        this.actions = new Actions(driver);
     }
 
     public void open(String url) {
@@ -31,6 +36,10 @@ public class BasePage {
 
     public WebElement fidElement(By by) {
         return this.driver.findElement(by);
+    }
+
+    public List<WebElement> fidElements(By by) {
+        return this.driver.findElements(by);
     }
 
     public WebElement waitElementVisible(By by) {
@@ -56,5 +65,9 @@ public class BasePage {
 
     public void enterTextAndKeys(By by, String text, Keys key) {
         waitElementVisible(by).sendKeys(text, key);
+    }
+
+    public void actionHover(By by) {
+        actions.moveToElement(waitElementVisible(by)).perform();
     }
 }
