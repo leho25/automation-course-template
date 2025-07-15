@@ -33,4 +33,4 @@ jobs:
               with: 
                 name: test-results
                 path: |
-                  target/cucumber-reports
+                  target/cucumber-reports.html
