@@ -42,6 +42,7 @@ public class BreadcrumHoverSteps extends SetupBrowser {
     public void the_page_title_should(String titleMenu) {
         HomePage homePage = new HomePage(driver);
         Assert.assertTrue(homePage.isDisplayTitle().contains(titleMenu));
+        quit();
     }
 
 }

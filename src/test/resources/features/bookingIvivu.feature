@@ -1,5 +1,5 @@
 Feature: Booking Ivivu Feature
-    @tc5
+    @smoke @tc5
     Scenario: Booking Ivivu Successful
         Given I am on the home page ivivu
         When I select the start date and end date

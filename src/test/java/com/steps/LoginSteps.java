@@ -7,30 +7,18 @@ import org.testng.Assert;
 import com.config.Constains;
 import com.pages.LoginICEHRMPage;
 import com.pages.LoginPage;
+import com.utils.SetupBrowser;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class LoginSteps {
-    WebDriver driver;
+public class LoginSteps extends SetupBrowser {
 
     @Given("I am on the login page")
     public void login_page() {
-        String browser = "chrome";
-
-        if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-        } else if (browser.equalsIgnoreCase("edge")) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-        } else {
-            throw new IllegalArgumentException("Browser not supported: " + browser);
-        }
-
-        driver.manage().window().maximize();
-
+        setup();
         String url = Constains.URL_ICEHRM;
         LoginICEHRMPage loginICEHRMPage = new LoginICEHRMPage(driver);
         loginICEHRMPage.open(url);
@@ -61,6 +49,6 @@ public class LoginSteps {
         LoginICEHRMPage loginICEHRMPage = new LoginICEHRMPage(driver);
         String actualMessage = loginICEHRMPage.getErrorMessage();
         Assert.assertEquals(actualMessage, expectedMessage, "The expected message does not match the actual message.");
-        driver.quit();
+        quit();
     }
 }

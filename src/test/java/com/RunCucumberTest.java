@@ -11,7 +11,7 @@ import io.cucumber.junit.CucumberOptions;
     glue = "com.steps",
     plugin = {"pretty","html:target/cucumber-reports.html"},
     monochrome = true,
-    tags = "@tc5"
+    tags = "@smoke"
 )
 public class RunCucumberTest {
     

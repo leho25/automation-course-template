@@ -1,6 +1,6 @@
 Feature: Shopping Cart Feature
 
-  @tc3
+  @smoke @tc3
   Scenario: Shopping Cart Successful
     Given I am on the page login
     When I enter valid credential

@@ -3,7 +3,7 @@ Feature: Login Feature
     As a user
     I want to log In
 
-  @smoke @tc1
+  @tc1
   Scenario: Successful Login
     Given I am on the login page
     When I enter valid credentials

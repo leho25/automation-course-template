@@ -61,6 +61,6 @@ public class ShoppingCartSteps extends SetupBrowser {
     public void the_cart_should_display_message() {
         CartPage cartPage = new CartPage(driver);
         cartPage.messageAddToCart();
-        driver.quit();
+        quit();
     }
 }

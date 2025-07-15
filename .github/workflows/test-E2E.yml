@@ -1,4 +1,4 @@
-name: Test E2E
+name: Test Cucumber
 on:
     push:
         branhches:
@@ -24,13 +24,13 @@ jobs:
                 sudo apt-get update
                 sudo apt-get --only-upgrade install -y google-chrome-stable
               
-            - name: Run E2E tests
+            - name: Run Cucumber tests
               run: |
-                mvn clean test -Dsuite=Case
+                mvn clean test
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
               with: 
                 name: test-results
                 path: |
-                  target/surefire-reports
+                  target/cucumber-reports

@@ -12,11 +12,8 @@ public class HomeIvivuPage extends BasePage {
     By clickUserNameButton = By.xpath("//div[contains(@class,'hlb__acc-option')]");
     By clickLoginButton = By.xpath("//button[contains(@class,'hlb__btn-signin')]");
     By clickDateButton = By.xpath("(//button[@type='button'])[1]");
-
-    By selectEndDate = By.xpath("//div[@id='2025-07-30']");
     By clickSearchInput = By.xpath("//input[contains(@class,'sb__search-input')]");
     By clickSearchButton = By.xpath("//button[contains(@class,'btn-bs__default')]");
-    By selectItemSearch = By.xpath("//span[contains(text(),'Đà Lạt')]");
     By selectItemHotel = By.xpath("//img[@alt='Khách sạn Colline Đà Lạt']");
     By titleNameHotel = By.xpath("//h1[@class='rmi__hotel-name']");
 
@@ -32,13 +29,9 @@ public class HomeIvivuPage extends BasePage {
         clickElement(clickDateButton);
     }
 
-    public void clickStartDate(String date) {
-        By selectStartDate = By.xpath("(//div[contains(text(),'" + date + "')])[1]");
+    public void clickDate(String date) {
+        By selectStartDate = By.xpath("//div[contains(text(),'" + date + "')]");
         clickElementJS(selectStartDate);
-    }
-
-    public void clickEndDate() {
-        clickElement(selectEndDate);
     }
 
     public void clickSearchInput() {
@@ -49,11 +42,13 @@ public class HomeIvivuPage extends BasePage {
         clickElement(clickSearchButton);
     }
 
-    public void selectItemSearch() {
+    public void selectItemSearch(String text) {
+        By selectItemSearch = By.xpath("//span[contains(text(),'" + text + "')]");
         clickElement(selectItemSearch);
     }
 
-    public void selectItemHotel() {
+    public void selectItemHotel(String text) {
+        By selectItemHotel = By.xpath("//img[@alt='" + text + "']");
         clickElement(selectItemHotel);
     }
 
@@ -62,15 +57,12 @@ public class HomeIvivuPage extends BasePage {
     }
 
     public void selectDate(String date, String monthYear) {
-        clickDateButton();
         By month = By.xpath("(//div[@class='month-item-header']//div)[1]");
         By nextMonthButton = By.xpath("(//button[@class='button-next-month'])[2]");
         while (true) {
             WebElement currentMonth = fidElement(month);
-            System.out.println("currentMonth: " + currentMonth.getText());
-            System.out.println("date: " + date);
             if (currentMonth.getText().equals(monthYear)) {
-                clickStartDate(date);
+                clickDate(date);
                 break;
             } else {
                 clickElementJS(nextMonthButton);
