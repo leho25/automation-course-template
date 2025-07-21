@@ -17,7 +17,7 @@ public class Tiki_HomePage extends BasePage {
     }
 
     public Tiki_HomePage clickSearchButtonTiki() {
-        clickElementJS(searchButton);
+        clickElement(searchButton);
         return this;
     }
 
