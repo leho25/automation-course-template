@@ -25,7 +25,7 @@ public class Tiki_ProductDetailsTest extends BasicTest {
 
     public Boolean namePriceDisplayed() {
         Tiki_ProductDetailsPage productDetailsPage = new Tiki_ProductDetailsPage(driver);
-        productDetailsPage.getNamePriceProduct("Điện Thoại Samsung Galaxy A06 (4GB/128GB) - Hàng Chính Hãng");
+        productDetailsPage.getNamePriceProduct("Điện Thoại Samsung Galaxy A16 LTE (4GB/128GB) - Đã kích hoạt bảo hành điện tử - Hàng Chính Hãng");
         return true;
     }
 }

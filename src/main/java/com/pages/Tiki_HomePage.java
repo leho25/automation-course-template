@@ -26,4 +26,9 @@ public class Tiki_HomePage extends BasePage {
         clickSearchButtonTiki();
     }
 
+    public void selectMenu(String menu) {
+        By menuElement = By.xpath("//div[text()='" + menu + "']");
+        clickElement(menuElement);
+    }
+
 }
