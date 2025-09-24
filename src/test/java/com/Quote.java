@@ -5,6 +5,11 @@ import org.testng.annotations.Test;
 
 import com.config.Constains;
 import com.pages.Quote_Homepage;
+import com.pages.Quote_VehicleAdd;
+import com.pages.Quote_VehicleBirthDay;
+import com.pages.Quote_VehicleBirthMonth;
+import com.pages.Quote_VehicleBirthYear;
+import com.pages.Quote_VehicleCurrentyInsured;
 import com.pages.Quote_VehicleMake;
 import com.pages.Quote_VehicleModel;
 import com.pages.Quote_VehicleOwnership;
@@ -26,6 +31,11 @@ public class Quote extends BasicTest {
         Quote_VehicleYear quote_VehicleYear = new Quote_VehicleYear(driver);
         Quote_VehicleModel quote_VehicleModel = new Quote_VehicleModel(driver);
         Quote_VehicleOwnership quote_VehicleOwnership = new Quote_VehicleOwnership(driver);
+        Quote_VehicleAdd quote_VehicleAdd = new Quote_VehicleAdd(driver);
+        Quote_VehicleCurrentyInsured quote_VehicleCurrentyInsured = new Quote_VehicleCurrentyInsured(driver);
+        Quote_VehicleBirthMonth quote_VehicleBirthMonth = new Quote_VehicleBirthMonth(driver);
+        Quote_VehicleBirthDay quote_VehicleBirthDay = new Quote_VehicleBirthDay(driver);
+        Quote_VehicleBirthYear quote_VehicleBirthYear = new Quote_VehicleBirthYear(driver);
         // open website https://dev.autowisequote.com/
         quote_Homepage.open(Constains.QUOTE_HOMEPAGE_URL);
         // click button Request Free Quote
@@ -38,5 +48,15 @@ public class Quote extends BasicTest {
         quote_VehicleModel.clickButtonVehicleModel();
         // click button vehicle ownership
         quote_VehicleOwnership.clickButtonVehicleOwnership();
+        // click button No, Thanks
+        quote_VehicleAdd.clickButtonVehicleNoThanks();
+        // click button vehicle currently insured
+        quote_VehicleCurrentyInsured.clickButtonVeheicleCurrentyInsured("No");
+        // click button vehicle birth month
+        quote_VehicleBirthMonth.clickButtonVeheicleBirthMonth("January");
+        // click button vehicle birth day
+        quote_VehicleBirthDay.clickButtonVehicleBirthDay("1");
+        // enter vehicle birth year
+        quote_VehicleBirthYear.enterBirthYear("2000");
     }
 }
