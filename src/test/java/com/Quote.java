@@ -6,11 +6,20 @@ import org.testng.annotations.Test;
 import com.config.Constains;
 import com.pages.Quote_Homepage;
 import com.pages.Quote_VehicleAdd;
+import com.pages.Quote_VehicleAddDriver;
+import com.pages.Quote_VehicleAddress;
 import com.pages.Quote_VehicleBirthDay;
 import com.pages.Quote_VehicleBirthMonth;
 import com.pages.Quote_VehicleBirthYear;
+import com.pages.Quote_VehicleContact;
 import com.pages.Quote_VehicleCurrentyInsured;
+import com.pages.Quote_VehicleDriverName;
+import com.pages.Quote_VehicleFinally;
+import com.pages.Quote_VehicleGender;
+import com.pages.Quote_VehicleHomeOwnership;
 import com.pages.Quote_VehicleMake;
+import com.pages.Quote_VehicleMaritalStatus;
+import com.pages.Quote_VehicleMilitaryStatus;
 import com.pages.Quote_VehicleModel;
 import com.pages.Quote_VehicleOwnership;
 import com.pages.Quote_VehicleYear;
@@ -36,6 +45,15 @@ public class Quote extends BasicTest {
         Quote_VehicleBirthMonth quote_VehicleBirthMonth = new Quote_VehicleBirthMonth(driver);
         Quote_VehicleBirthDay quote_VehicleBirthDay = new Quote_VehicleBirthDay(driver);
         Quote_VehicleBirthYear quote_VehicleBirthYear = new Quote_VehicleBirthYear(driver);
+        Quote_VehicleGender quote_VehicleGender = new Quote_VehicleGender(driver);
+        Quote_VehicleMaritalStatus quote_VehicleMaritalStatus = new Quote_VehicleMaritalStatus(driver);
+        Quote_VehicleMilitaryStatus quote_VehicleMilitaryStatus = new Quote_VehicleMilitaryStatus(driver);
+        Quote_VehicleDriverName quote_VehicleDriverName = new Quote_VehicleDriverName(driver);
+        Quote_VehicleAddDriver quote_VehicleAddDriver = new Quote_VehicleAddDriver(driver);
+        Quote_VehicleHomeOwnership quote_VehicleHomeOwnership = new Quote_VehicleHomeOwnership(driver);
+        Quote_VehicleAddress quote_VehicleAddress = new Quote_VehicleAddress(driver);
+        Quote_VehicleContact quote_VehicleContact = new Quote_VehicleContact(driver);
+        Quote_VehicleFinally quote_VehicleFinally = new Quote_VehicleFinally(driver);
         // open website https://dev.autowisequote.com/
         quote_Homepage.open(Constains.QUOTE_HOMEPAGE_URL);
         // click button Request Free Quote
@@ -58,5 +76,24 @@ public class Quote extends BasicTest {
         quote_VehicleBirthDay.clickButtonVehicleBirthDay("1");
         // enter vehicle birth year
         quote_VehicleBirthYear.enterBirthYear("2000");
+        // click button gender
+        quote_VehicleGender.clickButtonGender("Male");
+        // click button marital status
+        quote_VehicleMaritalStatus.clickButtonMaritalStatus("No");
+        // click button military status
+        quote_VehicleMilitaryStatus.clickButtonMilitaryStatus("No");
+        // enter driver name
+        quote_VehicleDriverName.clickButtonContinue();
+        // click button add driver
+        quote_VehicleAddDriver.clickButtonAddDriver("No, Thanks");
+        // click button home ownership
+        quote_VehicleHomeOwnership.clickButtonOwnership("Rent");
+        // enter address
+        quote_VehicleAddress.clickButtonContinue();
+        // enter contact information
+        quote_VehicleContact.clickButtonGetMyQuotes();
+        // verify offer is displayed
+        Assert.assertTrue(quote_VehicleFinally.getMessageAddSuccess().contains(" We found great offers for you in "));
+        
     }
 }
