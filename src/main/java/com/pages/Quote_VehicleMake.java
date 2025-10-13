@@ -12,9 +12,8 @@ public class Quote_VehicleMake extends BasePage {
         super(driver);
     }
 
-    By buttonVehicleMake = By.xpath("//span[text()='CHEVROLET']");
-
-    public void clickButtonVehicleMake() {
+    public void clickButtonVehicleMake(String vehicleMake) {
+        By buttonVehicleMake = By.xpath("//span[text()='" + vehicleMake + "']");
         clickElement(buttonVehicleMake);
         Set<String> handles = driver.getWindowHandles();
         List<String> handList = new ArrayList<>(handles);

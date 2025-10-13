@@ -8,9 +8,8 @@ public class Quote_VehicleOwnership extends BasePage {
         super(driver);
     }
 
-    By buttonVehicleOwnership = By.xpath("//h5[text()='Financed']");
-
-    public void clickButtonVehicleOwnership() {
+    public void clickButtonVehicleOwnership(String ownershipType) {
+        By buttonVehicleOwnership = By.xpath("//h5[text()='" + ownershipType + "']");
         clickElement(buttonVehicleOwnership);
     }
 }

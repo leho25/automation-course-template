@@ -8,9 +8,8 @@ public class Quote_VehicleModel extends BasePage {
         super(driver);
     }
 
-    By buttonVehicleModelBy = By.xpath("//h5[text()='Aveo']");
-
-    public void clickButtonVehicleModel() {
+    public void clickButtonVehicleModel(String vehicleModel) {
+        By buttonVehicleModelBy = By.xpath("//h5[text()='" + vehicleModel + "']");
         clickElement(buttonVehicleModelBy);
     }
 }

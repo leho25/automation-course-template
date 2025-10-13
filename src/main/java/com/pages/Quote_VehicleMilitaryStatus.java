@@ -13,7 +13,7 @@ public class Quote_VehicleMilitaryStatus extends BasePage {
         // By buttonMilitaryStatus = By.xpath("//h5[text()='No']");
         try {
             By buttonMilitaryStatus = By.xpath("//h5[text()='" + military + "']");
-            clickElementJS(buttonMilitaryStatus);
+            clickElement(buttonMilitaryStatus);
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println("Click military status failed" + e);
