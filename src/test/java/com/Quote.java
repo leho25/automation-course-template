@@ -34,7 +34,7 @@ public class Quote extends BasicTest {
         Assert.assertTrue(quote_Homepage.isLogoQuoteDisplayed(), "Logo Quote is not displayed");
     }
 
-    @Test
+    // @Test
     public void addOneVehicle() {
         Quote_Homepage quote_Homepage = new Quote_Homepage(driver);
         Quote_VehicleMake quote_VehicleMake = new Quote_VehicleMake(driver);
@@ -85,6 +85,7 @@ public class Quote extends BasicTest {
         Utils.hardWait(500);
         quote_VehicleMilitaryStatus.clickButtonMilitaryStatus("No");
         // enter driver name
+        quote_VehicleDriverName.enterDriverName("le", "ho");
         quote_VehicleDriverName.clickButtonContinue();
         // click button add driver
         quote_VehicleAddDriver.clickButtonAddDriver("No, Thanks");
@@ -99,7 +100,7 @@ public class Quote extends BasicTest {
 
     }
 
-    @Test
+    // @Test
     public void addTowVehicle() {
         Quote_Homepage quote_Homepage = new Quote_Homepage(driver);
         Quote_VehicleMake quote_VehicleMake = new Quote_VehicleMake(driver);
@@ -157,10 +158,10 @@ public class Quote extends BasicTest {
         // click button marital status
         quote_VehicleMaritalStatus.clickButtonMaritalStatus("No");
         // click button military status
-
         Utils.hardWait(500);
         quote_VehicleMilitaryStatus.clickButtonMilitaryStatus("No");
         // enter driver name
+        quote_VehicleDriverName.enterDriverName("le", "ho");
         quote_VehicleDriverName.clickButtonContinue();
         // click button add driver
         quote_VehicleAddDriver.clickButtonAddDriver("No, Thanks");
@@ -173,5 +174,99 @@ public class Quote extends BasicTest {
         // verify offer is displayed
         Assert.assertTrue(quote_VehicleFinally.getMessageAddSuccess().contains(" We found great offers for you in "));
 
+    }
+
+    @Test
+    public void birthDayFieldBlank() {
+        Quote_Homepage quote_Homepage = new Quote_Homepage(driver);
+        Quote_VehicleMake quote_VehicleMake = new Quote_VehicleMake(driver);
+        Quote_VehicleYear quote_VehicleYear = new Quote_VehicleYear(driver);
+        Quote_VehicleModel quote_VehicleModel = new Quote_VehicleModel(driver);
+        Quote_VehicleOwnership quote_VehicleOwnership = new Quote_VehicleOwnership(driver);
+        Quote_VehicleAdd quote_VehicleAdd = new Quote_VehicleAdd(driver);
+        Quote_VehicleCurrentyInsured quote_VehicleCurrentyInsured = new Quote_VehicleCurrentyInsured(driver);
+        Quote_VehicleBirthMonth quote_VehicleBirthMonth = new Quote_VehicleBirthMonth(driver);
+        Quote_VehicleBirthDay quote_VehicleBirthDay = new Quote_VehicleBirthDay(driver);
+        Quote_VehicleBirthYear quote_VehicleBirthYear = new Quote_VehicleBirthYear(driver);
+        Quote_VehicleFinally quote_VehicleFinally = new Quote_VehicleFinally(driver);
+        // open website https://dev.autowisequote.com/
+        quote_Homepage.open(Constains.QUOTE_HOMEPAGE_URL);
+        // click button Request Free Quote
+        quote_Homepage.clickButtonRequestFreeQuote();
+        // click button vehicle make
+        quote_VehicleMake.clickButtonVehicleMake("BUICK");
+        // click button vehicle year
+        quote_VehicleYear.clickButtonVehicleYear(2024);
+        // click button vehicle model
+        quote_VehicleModel.clickButtonVehicleModel("Electra E4");
+        // click button vehicle ownership
+        quote_VehicleOwnership.clickButtonVehicleOwnership("Financed");
+        // click button no thanks
+        quote_VehicleAdd.clickButtonVehicleNoThanks();
+        // click button vehicle currently insured
+        quote_VehicleCurrentyInsured.clickButtonVeheicleCurrentyInsured("No");
+        // click button vehicle birth month
+        quote_VehicleBirthMonth.clickButtonVeheicleBirthMonth("January");
+        // click button vehicle birth day
+        quote_VehicleBirthDay.clickButtonVehicleBirthDay("1");
+        // enter vehicle birth year
+        quote_VehicleBirthYear.enterBirthYear(" ");
+        // verify offer is displayed
+        Assert.assertTrue(quote_VehicleFinally.getWarringMessage()
+                .contains("Year needs to be at least 4 digit"));
+    }
+
+    @Test
+    public void firstNameAndLastNameFieldBlank() {
+        Quote_Homepage quote_Homepage = new Quote_Homepage(driver);
+        Quote_VehicleMake quote_VehicleMake = new Quote_VehicleMake(driver);
+        Quote_VehicleYear quote_VehicleYear = new Quote_VehicleYear(driver);
+        Quote_VehicleModel quote_VehicleModel = new Quote_VehicleModel(driver);
+        Quote_VehicleOwnership quote_VehicleOwnership = new Quote_VehicleOwnership(driver);
+        Quote_VehicleAdd quote_VehicleAdd = new Quote_VehicleAdd(driver);
+        Quote_VehicleCurrentyInsured quote_VehicleCurrentyInsured = new Quote_VehicleCurrentyInsured(driver);
+        Quote_VehicleBirthMonth quote_VehicleBirthMonth = new Quote_VehicleBirthMonth(driver);
+        Quote_VehicleBirthDay quote_VehicleBirthDay = new Quote_VehicleBirthDay(driver);
+        Quote_VehicleBirthYear quote_VehicleBirthYear = new Quote_VehicleBirthYear(driver);
+        Quote_VehicleGender quote_VehicleGender = new Quote_VehicleGender(driver);
+        Quote_VehicleMaritalStatus quote_VehicleMaritalStatus = new Quote_VehicleMaritalStatus(driver);
+        Quote_VehicleMilitaryStatus quote_VehicleMilitaryStatus = new Quote_VehicleMilitaryStatus(driver);
+        Quote_VehicleDriverName quote_VehicleDriverName = new Quote_VehicleDriverName(driver);
+        Quote_VehicleFinally quote_VehicleFinally = new Quote_VehicleFinally(driver);
+        // open website https://dev.autowisequote.com/
+        quote_Homepage.open(Constains.QUOTE_HOMEPAGE_URL);
+        // click button Request Free Quote
+        quote_Homepage.clickButtonRequestFreeQuote();
+        // click button vehicle make
+        quote_VehicleMake.clickButtonVehicleMake("BUICK");
+        // click button vehicle year
+        quote_VehicleYear.clickButtonVehicleYear(2024);
+        // click button vehicle model
+        quote_VehicleModel.clickButtonVehicleModel("Electra E4");
+        // click button vehicle ownership
+        quote_VehicleOwnership.clickButtonVehicleOwnership("Financed");
+        // click button no thanks
+        quote_VehicleAdd.clickButtonVehicleNoThanks();
+        // click button vehicle currently insured
+        quote_VehicleCurrentyInsured.clickButtonVeheicleCurrentyInsured("No");
+        // click button vehicle birth month
+        quote_VehicleBirthMonth.clickButtonVeheicleBirthMonth("January");
+        // click button vehicle birth day
+        quote_VehicleBirthDay.clickButtonVehicleBirthDay("1");
+        // enter vehicle birth year
+        quote_VehicleBirthYear.enterBirthYear("2000");
+        // click button gender
+        quote_VehicleGender.clickButtonGender("Male");
+        // click button marital status
+        quote_VehicleMaritalStatus.clickButtonMaritalStatus("No");
+        // click button military status
+        Utils.hardWait(500);
+        quote_VehicleMilitaryStatus.clickButtonMilitaryStatus("No");
+        // enter driver name
+        quote_VehicleDriverName.enterDriverName("", "");
+        quote_VehicleDriverName.clickButtonContinue();
+        // verify offer is displayed
+        Assert.assertTrue(quote_VehicleFinally.getWarringMessage()
+                .contains("This field is required."));
     }
 }

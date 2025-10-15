@@ -19,7 +19,6 @@ public class Quote_VehicleDriverName extends BasePage {
     }
 
     public void clickButtonContinue() {
-        enterDriverName("le", "Ho");
         clickElement(buttonContinue);
     }
 }
