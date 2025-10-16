@@ -8,13 +8,14 @@ public class Quote_VehicleFinally extends BasePage {
     }
 
     By messageAddSuccess = By.xpath("//h2");
-    By warringMessage = By.xpath("//div[@data-fs-field-error]");
 
     public String getMessageAddSuccess() {
         return waitElementVisible(messageAddSuccess).getText();
     }
 
-    public String getWarringMessage() {
+    public String getWarringMessage(Integer index) {
+        By warringMessage = By.xpath("(//div[@data-fs-field-error])[" + index + "]");
         return waitElementVisible(warringMessage).getText();
     }
+
 }
