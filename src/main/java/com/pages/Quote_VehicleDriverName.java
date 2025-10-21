@@ -9,6 +9,7 @@ public class Quote_VehicleDriverName extends BasePage {
     }
 
     By buttonContinue = By.xpath("//button[text()='Continue']");
+    By dropdownRelationship = By.xpath("//button[@name='drivers_1_relationship']");
 
     public void enterDriverName(String firstName, String lastName) {
         By inputFirstName = By.xpath("//input[@placeholder='First Name']");
@@ -20,5 +21,14 @@ public class Quote_VehicleDriverName extends BasePage {
 
     public void clickButtonContinue() {
         clickElement(buttonContinue);
+    }
+
+    public void clickDropdownRelationship() {
+        clickElement(dropdownRelationship);
+    }
+
+    public void clickRelationshipOption(String relationship) {
+        By optionRelationship = By.xpath("//div[text()='" + relationship + "']");
+        clickElement(optionRelationship);
     }
 }

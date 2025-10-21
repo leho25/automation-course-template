@@ -12,13 +12,21 @@ public class Quote_VehicleAddress extends BasePage {
     By buttonContinue = By.xpath("//button[text()='Continue']");
 
     public void enterAddress(String zipCode, String streetAddress) {
-
         By inputZipCode = By.xpath("//input[@name='zipcode']");
+        By inputZipCodeRelation = By.xpath("//input[@name='postalCode']");
         By inputStreetAddress = By.xpath("//input[@placeholder='e.g. 120 South Beverly Drive']");
-        waitElementVisible(inputZipCode).clear();
-        enterText(inputZipCode, zipCode);
-        enterText(inputStreetAddress, streetAddress);
 
+        if (driver.findElements(inputZipCode).size() > 0) {
+            waitElementVisible(inputZipCode).clear();
+            enterText(inputZipCode, zipCode);
+            System.out.println("enter zipcode is locator: zipcode");
+        } else {
+            waitElementVisible(inputZipCodeRelation).clear();
+            enterText(inputZipCodeRelation, zipCode);
+            System.out.println("enter zipcode is locator: postalCode");
+        }
+
+        enterText(inputStreetAddress, streetAddress);
     }
 
     public void clickButtonContinue() {

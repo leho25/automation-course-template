@@ -8,12 +8,14 @@ public class Quote_VehicleAddDriver extends BasePage {
         super(driver);
     }
 
-    public void clickButtonAddDriver(String addDriver) {
-        By buttonAddDriver = By.xpath("//button[text()='" + addDriver + "']");
-        // By buttonMilitaryStatus = By.xpath("//h5[text()='No']");
+    By buttonAddAnotherDriver = By.xpath("//h5[text()='Add Another Driver']");
+    By buttonNoThanks = By.xpath("//button[text()='No, Thanks']");
 
-        clickElementJS(buttonAddDriver);
-
+    public void clickButtonNoThanks() {
+        clickElementJS(buttonNoThanks);
     }
 
+    public void clickButtonAddAnotherDriver() {
+        clickElement(buttonAddAnotherDriver);
+    }
 }
