@@ -7,4 +7,5 @@ public class Constains {
     public static final String HOMEPAGE_IVIVU_URL = "https://www.ivivu.com";
     public static final String HOMEPAGE_TIKI_URL ="https://tiki.vn/";
 
+    public static final String QUOTE_HOMEPAGE_URL = "https://dev.autowisequote.com";
 }
