@@ -12,7 +12,7 @@ public class ProductDetailPage extends BasePage {
 
     public void selectOptionDropDown(String selectOption) {
         By selectValue = By.xpath("//option[contains(text(),'" + selectOption + "')]");
-        fidElement(selectValue).click();
+        waitElementClickable(selectValue).click();
     }
 
     public ProductDetailPage clickAddCart() {

@@ -26,8 +26,8 @@ jobs:
               
             - name: Run E2E tests
               run: |
-                mvn clean test -Dtest=com.Bai20_ShoppingCartTest
-                
+                mvn clean test -Dsuite=Case
+
             - name: Upload test results
               uses: actions/upload-artifact@v4
               with: 
