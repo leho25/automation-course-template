@@ -5,4 +5,6 @@ public class Constains {
     public static final String URL = BASE_URL + "/tai-khoan/";
     public static final String HOMEPAGE_URL = BASE_URL + "/";
     public static final String HOMEPAGE_IVIVU_URL = "https://www.ivivu.com";
+    public static final String HOMEPAGE_TIKI_URL ="https://tiki.vn/";
+
 }

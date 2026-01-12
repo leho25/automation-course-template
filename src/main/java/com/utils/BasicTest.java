@@ -30,7 +30,7 @@ public abstract class BasicTest {
         WebDriverManager.chromedriver().setup();
         // Headless mode
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+        // options.addArguments("--headless");
         options.addArguments("--disable-gpu");
         options.addArguments("--window-size=1366,768");
 
@@ -45,6 +45,6 @@ public abstract class BasicTest {
     @AfterMethod
     public void postCondition() {
         // Quit the Browser
-        driver.quit();
+        // driver.quit();
     }
 }
