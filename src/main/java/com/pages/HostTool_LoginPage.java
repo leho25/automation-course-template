@@ -11,6 +11,11 @@ public class HostTool_LoginPage extends BasePage {
     By emailField = By.xpath("//input[@data-testid='username']");
     By passwordField = By.xpath("//input[@data-testid='password']");
     By loginButton = By.xpath("//div[text()='Sign in']");
+    By forgorButton = By.xpath("//span[text()='Forgot your password?']");
+
+    public void clickForgotButton() {
+        clickElement(forgorButton);
+    }
 
     public void enterEmail(String email) {
         enterText(emailField, email);
