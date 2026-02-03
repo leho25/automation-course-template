@@ -1,8 +1,8 @@
 name: Test E2E
 on:
     push:
-        branhches:
-            - "**"
+        branches:
+            - "main"
 jobs:
     test-e2e:
         runs-on: ubuntu-latest
