@@ -11,19 +11,27 @@ public class HostTool_AllListingsPage extends BasePage {
         super(driver);
     }
 
-    By addRuleButton = By.xpath("(//span[text()='Add Rule'])[2]");
     By timelineItem = By.xpath("//div[contains(@data-testid, 'timeline-item')]");
-
+    By addMessageRuleButton = By.xpath("//div[text()='Add Message Rule']");
     By messageContentArea = By.xpath("//pre[@class='mt-0 mb-0']");
     By newMessageRuleAlert = By.xpath("//span[@role='alert']");
+    By listMessageRule = By.xpath("//div[contains(@data-testid,'timeline-item')]");
+    By editMessageButton = By.xpath("//button[@data-testid='btn-edit-message-rule']");
 
     public void clickAddRuleButton() {
-        clickElement(addRuleButton);
+        clickElement(addMessageRuleButton);
     }
 
-    public Boolean isRuleNameTitle(String ruleName) {
-        By ruleNameTitle = By.xpath("(//span[text()='" + ruleName + "'])[1]");
-        return waitElementVisible(ruleNameTitle).getText().contains(ruleName);
+    public Boolean isRuleNameNotExist(String ruleName) {
+        By ruleNameNotExist = By.xpath("//div[@data-testid='collapse']//span[text()='" + ruleName + "']");
+        waitElementInVisiable(ruleNameNotExist);
+        return driver.findElements(ruleNameNotExist).isEmpty();
+        // div[@data-testid='collapse']//span[text()='ho1']
+    }
+
+    public Boolean isRuleNameVisible(String ruleName) {
+        By ruleNameVisible = By.xpath("//div[@data-testid='collapse']//span[text()='" + ruleName + "']");
+        return waitElementVisible(ruleNameVisible).isDisplayed();
     }
 
     public Boolean isMessageContentArea(String messageContent) {
@@ -32,5 +40,9 @@ public class HostTool_AllListingsPage extends BasePage {
 
     public Boolean newMessageRuleCreated() {
         return waitElementVisible(newMessageRuleAlert).isDisplayed();
+    }
+
+    public void clickEditMessageButton() {
+        clickElement(editMessageButton);
     }
 }

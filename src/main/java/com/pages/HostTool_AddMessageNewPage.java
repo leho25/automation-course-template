@@ -1,6 +1,7 @@
 package com.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class HostTool_AddMessageNewPage extends BasePage {
@@ -15,10 +16,18 @@ public class HostTool_AddMessageNewPage extends BasePage {
     public void enterRuleName(String ruleName) {
         enterText(ruleNameField, ruleName);
     }
-    public void enterMessage(String message){
+
+    public void enterEditRuleName(String editRuleName) {
+        waitElementVisible(ruleNameField).sendKeys(Keys.CONTROL + "a");
+        waitElementVisible(ruleNameField).sendKeys(Keys.DELETE);
+        enterText(ruleNameField, editRuleName);
+    }
+
+    public void enterMessage(String message) {
         enterText(messageField, message);
     }
-    public void clickSaveButton(){
-        clickElement(saveButton);
+
+    public void clickSaveButton() {
+        clickElementJS(saveButton);
     }
 }

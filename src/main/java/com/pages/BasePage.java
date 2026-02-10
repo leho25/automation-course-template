@@ -1,5 +1,7 @@
 package com.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -33,8 +35,16 @@ public class BasePage {
         return this.driver.findElement(by);
     }
 
+    public Boolean waitElementInVisiable(By by) {
+        return this.wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
     public WebElement waitElementVisible(By by) {
         return this.wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    public List<WebElement> waitElementPresence(By by) {
+        return this.wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
     public WebElement waitElementClickable(By by) {
