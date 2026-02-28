@@ -17,6 +17,8 @@ public class HostTool_AllListingsPage extends BasePage {
     By newMessageRuleAlert = By.xpath("//span[@role='alert']");
     By listMessageRule = By.xpath("//div[contains(@data-testid,'timeline-item')]");
     By editMessageButton = By.xpath("//button[@data-testid='btn-edit-message-rule']");
+    By pauseMessageRuleButton = By.xpath("//button[@data-testid='btn-pause-message-rule']");
+    By pauseBadge = By.xpath("//div[@data-testid='badge']//span[text()='Paused']");
 
     public void clickAddRuleButton() {
         clickElement(addMessageRuleButton);
@@ -24,7 +26,7 @@ public class HostTool_AllListingsPage extends BasePage {
 
     public Boolean isRuleNameNotExist(String ruleName) {
         By ruleNameNotExist = By.xpath("//div[@data-testid='collapse']//span[text()='" + ruleName + "']");
-        waitElementInVisiable(ruleNameNotExist);
+        waitElementLocatedInVisiable(ruleNameNotExist);
         return driver.findElements(ruleNameNotExist).isEmpty();
         // div[@data-testid='collapse']//span[text()='ho1']
     }
@@ -41,8 +43,19 @@ public class HostTool_AllListingsPage extends BasePage {
     public Boolean newMessageRuleCreated() {
         return waitElementVisible(newMessageRuleAlert).isDisplayed();
     }
-
+    public Boolean isMessageNotiNotVisible(){
+        return waitElementInVisiable(waitElementVisible(newMessageRuleAlert));
+    }
+    public Boolean isMessageRulePause(String message){
+        return waitElementVisible(newMessageRuleAlert).getText().contains(message);
+    }
+    public Boolean isPausedChangesState() {
+        return waitElementVisible(pauseBadge).isDisplayed();
+    }
     public void clickEditMessageButton() {
         clickElement(editMessageButton);
+    }
+    public void clickPauseMessgeRuleButton() {
+        clickElement(pauseMessageRuleButton);
     }
 }

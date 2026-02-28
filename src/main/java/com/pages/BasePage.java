@@ -35,8 +35,12 @@ public class BasePage {
         return this.driver.findElement(by);
     }
 
-    public Boolean waitElementInVisiable(By by) {
+    public Boolean waitElementLocatedInVisiable(By by) {
         return this.wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
+    public Boolean waitElementInVisiable(WebElement element) {
+        return this.wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
     public WebElement waitElementVisible(By by) {
