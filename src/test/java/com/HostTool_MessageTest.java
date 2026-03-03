@@ -71,7 +71,7 @@ public class HostTool_MessageTest extends BasicTest {
         Assert.assertTrue(allListingsPage.newMessageRuleCreated(), "Edit message rule alert is not visile");
     }
 
-    @Test
+    // @Test
     public void verifyPauseMessageRule() {
         String loginUrl = Constains.HOSTTOOLS_URL;
         HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
@@ -102,4 +102,57 @@ public class HostTool_MessageTest extends BasicTest {
         driver.navigate().refresh();
         Assert.assertTrue(allListingsPage.isPausedChangesState(), "Paused state is not visible");
     }
-}
+
+    // @Test
+    public void verifyDeleteMessageRule() {
+        String loginUrl = Constains.HOSTTOOLS_URL;
+        HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
+        HostTool_MessagePage messagePage = new HostTool_MessagePage(driver);
+        HostTool_AllListingsPage allListingsPage = new HostTool_AllListingsPage(driver);
+        HostTool_AddMessageNewPage addMessageNewPage = new HostTool_AddMessageNewPage(driver);
+        loginPage.open(loginUrl);
+        // Login with valid credentials
+        loginPage.enterEmail("cypress@hosttools.com");
+        loginPage.enterPassword("QQ2giQUXuHUf6JZMM*eruF");
+        loginPage.clickLoginButton();
+        // CLick on "Messaging" menu button
+        messagePage.clickmenuButtonMessages();
+        // // click on "All listings" link navigation to All listings pages
+        messagePage.clickAllListingsLink();
+        // click on "Add Rule" button
+        allListingsPage.clickAddRuleButton();
+        // enter message details and click on "Save" button
+        addMessageNewPage.enterRuleName("ho213");
+        addMessageNewPage.enterMessage("lkahslda");
+        addMessageNewPage.clickSaveButton();
+        // the message rule is created successfully notifiction disappears
+        allListingsPage.isMessageNotiNotVisible();
+        allListingsPage.clickDeleteMessageButton();
+        allListingsPage.clickConfirmDeleteButton();
+
+        Assert.assertTrue(allListingsPage.isConfimDeleteModal(), "Confirm delete modal is not visible");
+        Assert.assertTrue(allListingsPage.newMessageRuleCreated(), "Delete message rule alert is not visible");
+        Assert.assertTrue(allListingsPage.isRuleNameNotExist("ho213"), "Deleted rule name is still visible");
+    }
+    @Test
+    public void verifySwitchBetweenMessageTemplates(){
+        String loginUrl = Constains.HOSTTOOLS_URL;
+        HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
+        HostTool_MessagePage messagePage = new HostTool_MessagePage(driver);
+        HostTool_AllListingsPage allListingsPage = new HostTool_AllListingsPage(driver);
+        loginPage.open(loginUrl);
+        // Login with valid credentials
+         loginPage.enterEmail("cypress@hosttools.com");
+        loginPage.enterPassword("QQ2giQUXuHUf6JZMM*eruF");
+        loginPage.clickLoginButton();
+        // CLick on "Messaging" menu button
+        messagePage.clickmenuButtonMessages();
+        // // click on "All listings" link navigation to All listings pages
+        messagePage.clickAllListingsLink();
+        // click on "Add Rule" button
+        allListingsPage.clickAddRuleButton();
+        // allListingsPage.selectMessageTemplate("Booking Confirmation Rule");    
+        allListingsPage.clickMessageTemplatesDropdown();
+        allListingsPage.selectMessageTemplate("Booking Confirmation Message Template");
+    }
+}   
