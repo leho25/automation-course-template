@@ -25,7 +25,7 @@ public class HostTool_AllListingsPage extends BasePage {
     By deleteMessageButton = By.xpath("//button[@data-testid='btn-delete-message-rule']");
     By confimDeleteButton = By.xpath("//button[@data-testid='btn-submit']");
     By confimDeleteModal = By.xpath("//div[@data-testid='modal-content']");
-    By messageTempatesDropdown = By.xpath("//div[@id='select-message-template']");
+
 
     public void clickAddRuleButton() {
         clickElement(addMessageRuleButton);
@@ -83,19 +83,6 @@ public class HostTool_AllListingsPage extends BasePage {
         return waitElementVisible(confimDeleteModal).isDisplayed();
     }
 
-    public void clickMessageTemplatesDropdown() {
-        clickElement(messageTempatesDropdown);
-    }
-
-    public void selectMessageTemplate(String templateName) {
-        List<WebElement> options = driver.findElements(By.xpath("//div[@role='option']"));
-        for (WebElement el : options) {
-            if (el.getText().equals(templateName)) {
-                el.click();
-                break;
-            }
-        }
-
-    }
+   
 
 }

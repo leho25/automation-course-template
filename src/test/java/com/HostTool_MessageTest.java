@@ -11,7 +11,7 @@ import com.pages.HostTool_MessagePage;
 import com.utils.BasicTest;
 
 public class HostTool_MessageTest extends BasicTest {
-    // @Tests
+    @Test
     public void verifyUserAddMessage() {
         // Open HostTool login page
         String loginUrl = Constains.HOSTTOOLS_URL;
@@ -39,7 +39,7 @@ public class HostTool_MessageTest extends BasicTest {
                 && allListingsPage.newMessageRuleCreated());
     }
 
-    // @Test
+    @Test
     public void verifyEditExistingMessage() {
         String loginUrl = Constains.HOSTTOOLS_URL;
         HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
@@ -71,7 +71,7 @@ public class HostTool_MessageTest extends BasicTest {
         Assert.assertTrue(allListingsPage.newMessageRuleCreated(), "Edit message rule alert is not visile");
     }
 
-    // @Test
+    @Test
     public void verifyPauseMessageRule() {
         String loginUrl = Constains.HOSTTOOLS_URL;
         HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
@@ -103,7 +103,7 @@ public class HostTool_MessageTest extends BasicTest {
         Assert.assertTrue(allListingsPage.isPausedChangesState(), "Paused state is not visible");
     }
 
-    // @Test
+    @Test
     public void verifyDeleteMessageRule() {
         String loginUrl = Constains.HOSTTOOLS_URL;
         HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
@@ -134,15 +134,17 @@ public class HostTool_MessageTest extends BasicTest {
         Assert.assertTrue(allListingsPage.newMessageRuleCreated(), "Delete message rule alert is not visible");
         Assert.assertTrue(allListingsPage.isRuleNameNotExist("ho213"), "Deleted rule name is still visible");
     }
+
     @Test
-    public void verifySwitchBetweenMessageTemplates(){
+    public void verifySwitchBetweenMessageTemplates() {
         String loginUrl = Constains.HOSTTOOLS_URL;
         HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
         HostTool_MessagePage messagePage = new HostTool_MessagePage(driver);
         HostTool_AllListingsPage allListingsPage = new HostTool_AllListingsPage(driver);
+        HostTool_AddMessageNewPage addMessageNewPage = new HostTool_AddMessageNewPage(driver);
         loginPage.open(loginUrl);
         // Login with valid credentials
-         loginPage.enterEmail("cypress@hosttools.com");
+        loginPage.enterEmail("cypress@hosttools.com");
         loginPage.enterPassword("QQ2giQUXuHUf6JZMM*eruF");
         loginPage.clickLoginButton();
         // CLick on "Messaging" menu button
@@ -151,8 +153,26 @@ public class HostTool_MessageTest extends BasicTest {
         messagePage.clickAllListingsLink();
         // click on "Add Rule" button
         allListingsPage.clickAddRuleButton();
-        // allListingsPage.selectMessageTemplate("Booking Confirmation Rule");    
-        allListingsPage.clickMessageTemplatesDropdown();
-        allListingsPage.selectMessageTemplate("Booking Confirmation Message Template");
+        // click template dropdown and select "Booking Confirmation Message Template"
+        addMessageNewPage.clickMessageTemplatesDropdown();
+        addMessageNewPage.selectMessageTemplate("Booking Confirmation Message Template");
+        // Verify template details are displayed
+        Assert.assertTrue(addMessageNewPage.isTemplateRuleNameVisible("Booking Confirmation Rule"),
+                "Booking Confirmation Rule is not visible after select template");
+        Assert.assertTrue(addMessageNewPage.getMessageContent("Thanks for booking our place"),
+                "Booking Confirmation Message Template content is not visible after select template");
+        // click delay dropdown and verify options are displayed
+        addMessageNewPage.clickDelayDropdown();
+        Assert.assertTrue(addMessageNewPage.showDelayOptions("10 Minutes After")
+                && addMessageNewPage.showDelayOptions("30 Minutes After"), "Not delay options are displayed");
+        // switch to "Booking Inquiry Message Template" and verify new template details
+        // are displayed
+        addMessageNewPage.clickMessageTemplatesDropdown();
+        addMessageNewPage.selectMessageTemplate("Booking Inquiry Message Template");
+        Assert.assertTrue(addMessageNewPage.isTemplateRuleNameVisible("Inquiry Response Rule"),
+                "Inquiry Response Rule is not visible after select template");
+        Assert.assertTrue(addMessageNewPage.getMessageContent("Thanks for your inquiry"),
+                "Inquiry Response Rule Template content is not visible after select template");
+
     }
-}   
+}
