@@ -34,4 +34,7 @@ public class HostTool_LoginPage extends BasePage {
         return waitElementVisible(errorMessage).isDisplayed();
 
     }
+     public Boolean navigateToHomePage(String homeUrl){
+        return waitUrlToBe(homeUrl);
+    }
 }

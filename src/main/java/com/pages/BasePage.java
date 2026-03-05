@@ -54,6 +54,9 @@ public class BasePage {
     public WebElement waitElementClickable(By by) {
         return this.wait.until(ExpectedConditions.elementToBeClickable(by));
     }
+    public Boolean waitUrlToBe(String url) {
+        return this.wait.until(ExpectedConditions.urlToBe(url));
+    }
 
     public void clickElement(By by) {
         waitElementClickable(by).click();
