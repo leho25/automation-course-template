@@ -15,9 +15,10 @@ public class HostTool_MessagePage extends BasePage {
     By menuButtonMesssages = By.xpath("//span[text()='Messaging']");
     By allListingsLink = By.xpath("//span[text()='All listings']");
     By calenderBoxElement = By.xpath("//div[@data-testid='box-content-wrapper']");
-    By listingItemElement = By.xpath("//div[@data-testid='listing-slat']");
-    By dotsListingButton = By.xpath("//button[@data-testid='more-menu-listing']");
-    By nameListingElement = By.xpath("//span[@data-testid='listing-title']");
+    By listingItemElement = By.xpath("//td[@role='gridcell']");
+    By dotsListingButton = By.xpath(".//button[@data-testid='more-menu-listing']");
+    By nameListingElement = By.xpath(".//span[@data-testid='listing-title']");
+  
 
     public void clickmenuButtonMessages() {
         clickElement(menuButtonMesssages);
@@ -32,24 +33,25 @@ public class HostTool_MessagePage extends BasePage {
 
     }
 
-    public void selectRandomListing() {
+    public String selectRandomListing() {
         waitElementVisible(listingItemElement);
         List<WebElement> listingItems = driver.findElements(listingItemElement);
         // Generate a radom index to select a random listing
         int randomIndex = new Random().nextInt(listingItems.size());
-         System.out.println("randomIndex listing: " + randomIndex);
+        System.out.println("randomIndex listing: " + randomIndex);
         // click on the randomly selected listing
         WebElement randomListing = listingItems.get(randomIndex);
-         System.out.println("randomListing listing: " + randomListing.getText());
         String listingName = randomListing.findElement(nameListingElement).getText();
-        System.out.println("Selected listing: " + listingName);
         randomListing.findElement(dotsListingButton).click();
-        System.out.println("Clicked on the dots button for listing: " + randomListing.findElement(dotsListingButton));
+        System.out.println("Clicked dots button for listing: " + listingName);
+        return listingName;
     }
 
     public void cickListingsDropdown(String options) {
         By optionDropdow = By.xpath("//span[text()='" + options + "']");
         clickElement(optionDropdow);
     }
+
+   
 
 }
