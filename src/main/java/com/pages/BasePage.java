@@ -54,6 +54,7 @@ public class BasePage {
     public WebElement waitElementClickable(By by) {
         return this.wait.until(ExpectedConditions.elementToBeClickable(by));
     }
+
     public Boolean waitUrlToBe(String url) {
         return this.wait.until(ExpectedConditions.urlToBe(url));
     }
@@ -73,5 +74,13 @@ public class BasePage {
 
     public void enterTextAndKeys(By by, String text, Keys key) {
         waitElementVisible(by).sendKeys(text, key);
+    }
+
+    public void setChecked(By by, boolean shouldBeChecked) {
+        WebElement checkbox = waitElementVisible(by);
+        boolean isChecked = checkbox.getAttribute("data-checked").equals("true");
+        if (isChecked != shouldBeChecked) {
+            checkbox.click();
+        }
     }
 }
