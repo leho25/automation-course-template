@@ -83,4 +83,11 @@ public class BasePage {
             checkbox.click();
         }
     }
+    // public int getElementValue(By by){
+    //     String value = waitElementVisible(by).getAttribute("value");
+    //     if(value == null || value.isEmpty()){
+    //         return 0;
+    //     }
+    //     return Integer.parseInt(value);
+    // }
 }

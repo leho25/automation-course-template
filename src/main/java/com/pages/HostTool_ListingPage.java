@@ -21,6 +21,10 @@ public class HostTool_ListingPage extends BasePage {
     By minNightInput = By.xpath("//input[@data-testid='input-min-nights']");
     By saveButton = By.xpath("//button[@data-testid='btn-save-listing']");
     By messageAlert = By.xpath("//span[@role='alert']");
+    By nickNameInput = By.xpath("//input[@data-testid='input-nickname']");
+    By icalUrlInput = By.xpath("//input[@data-testid='input-ical-url']");
+    By addCalenderButton = By.xpath("//div[@data-testid='btn-add-calendar']");
+    By refreshIconButton = By.xpath("//button[@data-testid='btn-refresh-icon']");
 
     public String openModalSuccessfully() {
         return waitElementVisible(nameBreadcrumb).getText();
@@ -79,7 +83,44 @@ public class HostTool_ListingPage extends BasePage {
         return waitElementVisible(messageAlert).isDisplayed();
     }
 
-public Boolean isDataSaveSuccess(String message) {
+    public Boolean isDataSaveSuccess(String message) {
         return waitElementVisible(messageAlert).getText().contains(message);
+    }
+
+    public void enterUpdateNickName(String nickName) {
+        enterText(nickNameInput, nickName);
+        waitElementVisible(nickNameInput).sendKeys(Keys.ENTER);
+    }
+
+    public int getMinPrice() {
+        String value = waitElementVisible(minPriceInput).getAttribute("value");
+        return value.isEmpty() ? 0 : Integer.parseInt(value);
+    }
+
+    public int getBasePrice() {
+        String value = waitElementVisible(basePriceInput).getAttribute("value");
+        return value.isEmpty() ? 0 : Integer.parseInt(value);
+    }
+
+    public void enterUpdateMinPrice(int price) {
+        waitElementVisible(minPriceInput).sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        enterText(minPriceInput, String.valueOf(price));
+    }
+
+    public void enterUpdateBasePrice(int price) {
+        waitElementVisible(basePriceInput).sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        enterText(basePriceInput, String.valueOf(price));
+    }
+
+    public void enterUpdateMinNight(int time) {
+        waitElementVisible(minNightInput).sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        enterText(minNightInput, String.valueOf(time));
+    }
+    public void addUrlCalender(String url){
+        enterText(icalUrlInput, url);
+        clickElement(addCalenderButton);
+    }
+    public void clickRefreshIconButton(){
+        clickElement(refreshIconButton);
     }
 }

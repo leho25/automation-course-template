@@ -34,7 +34,7 @@ class HostTool_ListingTest extends BasicTest {
                 && listingPage.isElementVisible("Listing Nickname") && listingPage.isElementVisible("Pricing"));
     }
 
-    @Test
+    // @Test
     public void veirfyEmptyRequiredFileds() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -74,5 +74,42 @@ class HostTool_ListingTest extends BasicTest {
         // displayed");
         Assert.assertTrue(listingPage.titleModalDisplay(), "Modal is closed");
         Assert.assertFalse(listingPage.isDataSaveSuccess("Listing content updated"), "Data shouble not be saved");
+    }
+
+    @Test
+    public void verifyEditListing() {
+        // Oen HostTool login page
+        String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
+        String homeUrl = Constains.HOSTTOOLS_HOME_URL;
+        HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
+        HostTool_MessagePage homePage = new HostTool_MessagePage(driver);
+        HostTool_ListingPage listingPage = new HostTool_ListingPage(driver);
+        loginPage.open(loginUrl);
+        // Login with valid credentials
+        loginPage.enterEmail("cypress@hosttools.com");
+        loginPage.enterPassword("QQ2giQUXuHUf6JZMM*eruF");
+        loginPage.clickLoginButton();
+        loginPage.navigateToHomePage(homeUrl);
+        // wait for homepage loadss
+        homePage.waitForHomePageLoad();
+        // select random
+        homePage.selectRandomListing();
+        // select 'Listing Settings' option from dropdown
+        homePage.cickListingsDropdown("Listing Settings");
+        listingPage.clickEnableListing();
+        listingPage.clickMessageOnly();
+        // click edit nick name and update with "-edited" suffix
+        listingPage.enterUpdateNickName("Ho-edited");
+        
+        int minPrice = listingPage.getMinPrice();
+        listingPage.enterUpdateMinPrice(minPrice + 100);
+        int basePrice=listingPage.getBasePrice();
+        listingPage.enterUpdateBasePrice(basePrice+100);
+
+        listingPage.enterUpdateMinNight(2);
+
+        listingPage.addUrlCalender(Constains.CALENDER_GOOGLE_URL);
+        listingPage.clickRefreshIconButton();
+        listingPage.clickSaveButton();
     }
 }

@@ -11,4 +11,5 @@ public class Constains {
     public static final String HOSTTOOLS_HOME_URL = HOSTTOOLS_URL + "/";
     public static final String HOSTTOOLS_LOGIN_URL = HOSTTOOLS_URL + "/login";
     public static final String HOSTTOOLS_FORGOT_URL = HOSTTOOLS_URL + "/forgot";
+    public static final String CALENDER_GOOGLE_URL = "https://calendar.google.com/calendar/u/0/r";
 }
