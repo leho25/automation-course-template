@@ -100,16 +100,28 @@ class HostTool_ListingTest extends BasicTest {
         listingPage.clickMessageOnly();
         // click edit nick name and update with "-edited" suffix
         listingPage.enterUpdateNickName("Ho-edited");
-        
+        // calculator min price
         int minPrice = listingPage.getMinPrice();
         listingPage.enterUpdateMinPrice(minPrice + 100);
-        int basePrice=listingPage.getBasePrice();
-        listingPage.enterUpdateBasePrice(basePrice+100);
-
+        // calculator base price
+        int basePrice = listingPage.getBasePrice();
+        listingPage.enterUpdateBasePrice(basePrice + 100);
+        // set min night
         listingPage.enterUpdateMinNight(2);
-
+        // add link calender
         listingPage.addUrlCalender(Constains.CALENDER_GOOGLE_URL);
+        // click on "refresh" button
         listingPage.clickRefreshIconButton();
+        //click on "save" button
         listingPage.clickSaveButton();
+        //Verify expected result
+        Assert.assertTrue(listingPage.getNickName(), "nick name not update");
+        Assert.assertTrue(listingPage.isBasePrice());
+        Assert.assertTrue(listingPage.isMinPrice());
+        Assert.assertTrue(listingPage.isMinNight());
+        Assert.assertTrue(listingPage.isUrlCalender(Constains.CALENDER_GOOGLE_URL));
+        Assert.assertTrue(listingPage.isExportCalenderLink("ical"));
+        Assert.assertTrue(listingPage.isNewNickNameCalender("edited"));
+        
     }
 }

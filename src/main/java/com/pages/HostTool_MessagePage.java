@@ -51,7 +51,9 @@ public class HostTool_MessagePage extends BasePage {
         By optionDropdow = By.xpath("//span[text()='" + options + "']");
         clickElement(optionDropdow);
     }
-
+    public Boolean isNewNickNameCalender(String newNickName){
+        return waitElementVisible(nameListingElement).getText().contains(newNickName);
+    }
    
 
 }

@@ -25,6 +25,11 @@ public class HostTool_ListingPage extends BasePage {
     By icalUrlInput = By.xpath("//input[@data-testid='input-ical-url']");
     By addCalenderButton = By.xpath("//div[@data-testid='btn-add-calendar']");
     By refreshIconButton = By.xpath("//button[@data-testid='btn-refresh-icon']");
+    By errorAddUrlExists = By.xpath("//span[text()='The iCal link already exists.']");
+    By deleteUrlButton = By.xpath("//button[@data-testid='btn-delete-ical-url']");
+    By urlCalenderLink = By.xpath("//a[@data-testid='link-url']");
+    By calenderHeader = By.xpath("//span[text()='Calendar']");
+    By nameListingElement = By.xpath("//span[@data-testid='listing-title']");
 
     public String openModalSuccessfully() {
         return waitElementVisible(nameBreadcrumb).getText();
@@ -88,8 +93,19 @@ public class HostTool_ListingPage extends BasePage {
     }
 
     public void enterUpdateNickName(String nickName) {
-        enterText(nickNameInput, nickName);
+
+        String value = waitElementVisible(nickNameInput).getAttribute("value");
+        if (value.isEmpty()) {
+            enterText(nickNameInput, nickName);
+        } else {
+            waitElementVisible(nickNameInput).sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+            enterText(nickNameInput, nickName);
+        }
         waitElementVisible(nickNameInput).sendKeys(Keys.ENTER);
+    }
+
+    public Boolean getNickName() {
+        return waitElementVisible(nickNameInput).isDisplayed();
     }
 
     public int getMinPrice() {
@@ -116,11 +132,61 @@ public class HostTool_ListingPage extends BasePage {
         waitElementVisible(minNightInput).sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         enterText(minNightInput, String.valueOf(time));
     }
-    public void addUrlCalender(String url){
-        enterText(icalUrlInput, url);
-        clickElement(addCalenderButton);
+
+    public void addUrlCalender(String url) {
+
+        if (isExportCalenderLink(url)) {
+            enterText(icalUrlInput, url);
+            clickElement(addCalenderButton);
+            try {
+                Boolean isErrorUrlExits = waitElementVisible(errorAddUrlExists).isDisplayed();
+                if (isErrorUrlExits) {
+                    waitElementVisible(icalUrlInput).sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("e: " + e);
+            }
+
+        } else {
+            enterText(icalUrlInput, url);
+            clickElement(addCalenderButton);
+            System.out.println("1111111111111111111");
+        }
+
     }
-    public void clickRefreshIconButton(){
+
+    public void clickRefreshIconButton() {
         clickElement(refreshIconButton);
     }
+
+    public Boolean isBasePrice() {
+        return waitElementVisible(basePriceInput).isDisplayed();
+    }
+
+    public Boolean isMinPrice() {
+        return waitElementVisible(minPriceInput).isDisplayed();
+    }
+
+    public Boolean isMinNight() {
+        return waitElementVisible(minNightInput).isDisplayed();
+    }
+
+    public Boolean isUrlCalender(String url) {
+        By urlCalenderItem = By.xpath("//span[text()='" + url + "']");
+        return waitElementVisible(urlCalenderItem).getText().contains(url);
+    }
+
+    public Boolean isExportCalenderLink(String url) {
+        return waitElementVisible(urlCalenderLink).getText().contains(url);
+    }
+
+    public void clickNavigationCalender() {
+        clickElement(calenderHeader);
+    }
+
+    public Boolean isNewNickNameCalender(String newNickName) {
+        return waitElementVisible(nameListingElement).getText().contains(newNickName);
+    }
+
 }
