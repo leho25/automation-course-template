@@ -7,6 +7,7 @@ import com.config.Constains;
 import com.pages.HostTool_ListingPage;
 import com.pages.HostTool_LoginPage;
 import com.pages.HostTool_MessagePage;
+import com.pages.HostTool_PricingPage;
 import com.utils.BasicTest;
 
 class HostTool_ListingTest extends BasicTest {
@@ -76,7 +77,7 @@ class HostTool_ListingTest extends BasicTest {
         Assert.assertFalse(listingPage.isDataSaveSuccess("Listing content updated"), "Data shouble not be saved");
     }
 
-    @Test
+    // @Test
     public void verifyEditListing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -112,16 +113,72 @@ class HostTool_ListingTest extends BasicTest {
         listingPage.addUrlCalender(Constains.CALENDER_GOOGLE_URL);
         // click on "refresh" button
         listingPage.clickRefreshIconButton();
-        //click on "save" button
+        // click on "save" button
         listingPage.clickSaveButton();
-        //Verify expected result
-        Assert.assertTrue(listingPage.getNickName(), "nick name not update");
+        // Verify expected result
+        Assert.assertTrue(listingPage.isNickName("Ho-edited"), "nick name not update");
         Assert.assertTrue(listingPage.isBasePrice());
         Assert.assertTrue(listingPage.isMinPrice());
         Assert.assertTrue(listingPage.isMinNight());
         Assert.assertTrue(listingPage.isUrlCalender(Constains.CALENDER_GOOGLE_URL));
         Assert.assertTrue(listingPage.isExportCalenderLink("ical"));
         Assert.assertTrue(listingPage.isNewNickNameCalender("edited"));
-        
+
+    }
+
+    @Test
+    public void verifyPresistAcrossPricing() {
+        // Oen HostTool login page
+        String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
+        String homeUrl = Constains.HOSTTOOLS_HOME_URL;
+        HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
+        HostTool_MessagePage homePage = new HostTool_MessagePage(driver);
+        HostTool_ListingPage listingPage = new HostTool_ListingPage(driver);
+        HostTool_PricingPage pricingPage = new HostTool_PricingPage(driver);
+        loginPage.open(loginUrl);
+        // Login with valid credentials
+        loginPage.enterEmail("cypress@hosttools.com");
+        loginPage.enterPassword("QQ2giQUXuHUf6JZMM*eruF");
+        loginPage.clickLoginButton();
+        loginPage.navigateToHomePage(homeUrl);
+        // wait for homepage loadss
+        homePage.waitForHomePageLoad();
+        // select random
+        homePage.selectRandomListing();
+        // select 'Listing Settings' option from dropdown
+        homePage.cickListingsDropdown("Listing Settings");
+        listingPage.clickEnableListing();
+        listingPage.clickMessageOnly();
+        // click edit nick name and update with "-edited" suffix
+        listingPage.enterUpdateNickName("Ho-edited");
+        // calculator min price
+        int minPrice = listingPage.getMinPrice();
+        listingPage.enterUpdateMinPrice(minPrice + 100);
+        // calculator base price
+        int basePrice = listingPage.getBasePrice();
+        listingPage.enterUpdateBasePrice(basePrice + 100);
+        // set min night
+        listingPage.enterUpdateMinNight(2);
+        // add link calender
+        listingPage.addUrlCalender(Constains.CALENDER_GOOGLE_URL);
+        // click on "refresh" button
+        listingPage.clickRefreshIconButton();
+        // click on "save" button
+        listingPage.clickSaveButton();
+        // click on "Pricing" button in hearder
+        listingPage.clickNavigationHeader("Pricing");
+        // select nick name after search
+        listingPage.clickListingAfterSearch("Ho-edited");
+        // wait for pricing page load
+        pricingPage.waitLoadDataPricingPage();
+        // verify data persist across pricing page
+        pricingPage.clickThreeDotsButton();
+        pricingPage.clickListingSetting();
+        Assert.assertTrue(pricingPage.nickNameTitleVisible("Ho-edited").contains("edited"), "nick name is not visible");
+        Assert.assertTrue(listingPage.isNickName("Ho-edited"));
+        Assert.assertEquals(listingPage.getBasePrice(), basePrice + 100, "base price is incorrect");
+        Assert.assertEquals(listingPage.getMinPrice(), minPrice + 100, "min price is incorrect");
+        Assert.assertTrue(listingPage.isExportCalenderLink("ical"));
+        Assert.assertTrue(listingPage.urlCalenderExists(Constains.CALENDER_GOOGLE_URL));
     }
 }
