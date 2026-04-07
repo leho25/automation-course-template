@@ -24,7 +24,7 @@ public class HostTool_PricingPage extends BasePage {
         waitElementVisible(pricingChart);
     }
 
-    public String nickNameTitleVisible(String nickName) {
+    public String nickNameTitleVisible(String nickName) {   
         By nickNameTitle = By.xpath("//span[text()='" + nickName + "']");
         return waitElementVisible(nickNameTitle).getText();
     }

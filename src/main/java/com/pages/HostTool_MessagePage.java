@@ -18,7 +18,6 @@ public class HostTool_MessagePage extends BasePage {
     By listingItemElement = By.xpath("//td[@role='gridcell']");
     By dotsListingButton = By.xpath(".//button[@data-testid='more-menu-listing']");
     By nameListingElement = By.xpath(".//span[@data-testid='listing-title']");
-  
 
     public void clickmenuButtonMessages() {
         clickElement(menuButtonMesssages);
@@ -49,11 +48,12 @@ public class HostTool_MessagePage extends BasePage {
 
     public void cickListingsDropdown(String options) {
         By optionDropdow = By.xpath("//span[text()='" + options + "']");
-        clickElement(optionDropdow);
+        clickElementJS(optionDropdow);
     }
-    public Boolean isNewNickNameCalender(String newNickName){
-        return waitElementVisible(nameListingElement).getText().contains(newNickName);
+
+    public String isNewNickNameCalender(String newNickName) {
+        By nickNameListingElement = By.xpath("//span[@data-testid='listing-title' and text()='" + newNickName + "']");
+        return waitElementVisible(nickNameListingElement).getText();
     }
-   
 
 }

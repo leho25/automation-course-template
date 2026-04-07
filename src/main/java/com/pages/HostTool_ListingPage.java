@@ -104,13 +104,8 @@ public class HostTool_ListingPage extends BasePage {
         waitElementVisible(nickNameInput).sendKeys(Keys.ENTER);
     }
 
-    public Boolean isNickName(String nickName) {
-        By nickNameInput = By.xpath("//input[@data-testid='input-nickname'and text()='" + nickName + "']");
-        return waitElementVisible(nickNameInput).getText().contains(nickName);
-    }
-
-    public String getNickName() {
-        return waitElementVisible(nickNameInput).getText();
+    public String getValueNickName() {
+        return waitElementVisible(nickNameInput).getAttribute("value");
     }
 
     public int getMinPrice() {
@@ -200,11 +195,7 @@ public class HostTool_ListingPage extends BasePage {
         By calenderHeader = By.xpath("//span[text()='" + hearder + "']");
         clickElement(calenderHeader);
     }
-
-    public Boolean isNewNickNameCalender(String newNickName) {
-        return waitElementVisible(nameListingElement).getText().contains(newNickName);
-    }
-
+    
     public void enterSearchListing(String search) {
         enterText(searchListingInput, search);
     }

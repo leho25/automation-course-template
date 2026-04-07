@@ -46,7 +46,9 @@ public class BasePage {
     public WebElement waitElementVisible(By by) {
         return this.wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
-
+    public Boolean waitUrlContains(String url){
+        return this.wait.until(ExpectedConditions.urlContains(url));
+    }
     public List<WebElement> waitElementPresence(By by) {
         return this.wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }

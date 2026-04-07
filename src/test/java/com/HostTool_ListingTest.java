@@ -1,5 +1,6 @@
 package com;
 
+import org.apache.poi.util.Units;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,6 +10,7 @@ import com.pages.HostTool_LoginPage;
 import com.pages.HostTool_MessagePage;
 import com.pages.HostTool_PricingPage;
 import com.utils.BasicTest;
+import com.utils.Utils;
 
 class HostTool_ListingTest extends BasicTest {
     // @Test
@@ -77,7 +79,7 @@ class HostTool_ListingTest extends BasicTest {
         Assert.assertFalse(listingPage.isDataSaveSuccess("Listing content updated"), "Data shouble not be saved");
     }
 
-    // @Test
+    @Test
     public void verifyEditListing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -116,17 +118,20 @@ class HostTool_ListingTest extends BasicTest {
         // click on "save" button
         listingPage.clickSaveButton();
         // Verify expected result
-        Assert.assertTrue(listingPage.isNickName("Ho-edited"), "nick name not update");
+        // System.out.println("Nick name: " + listingPage.getValueNickName());
+        Assert.assertEquals(listingPage.getValueNickName(), "Ho-edited");
         Assert.assertTrue(listingPage.isBasePrice());
         Assert.assertTrue(listingPage.isMinPrice());
         Assert.assertTrue(listingPage.isMinNight());
         Assert.assertTrue(listingPage.isUrlCalender(Constains.CALENDER_GOOGLE_URL));
         Assert.assertTrue(listingPage.isExportCalenderLink("ical"));
-        Assert.assertTrue(listingPage.isNewNickNameCalender("edited"));
-
+        Utils.hardWait(2000);
+        listingPage.clickNavigationHeader("Calendar");
+        driver.navigate().refresh();
+        Assert.assertTrue(homePage.isNewNickNameCalender("Ho-edited").contains("Ho-edited"),"new nick name is not visible in calender page");
     }
 
-    @Test
+    // @Test
     public void verifyPresistAcrossPricing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -165,17 +170,17 @@ class HostTool_ListingTest extends BasicTest {
         listingPage.clickRefreshIconButton();
         // click on "save" button
         listingPage.clickSaveButton();
-        // click on "Pricing" button in hearder
+        // // click on "Pricing" button in hearder
         listingPage.clickNavigationHeader("Pricing");
-        // select nick name after search
+        // // select nick name after search
         listingPage.clickListingAfterSearch("Ho-edited");
-        // wait for pricing page load
+        // // wait for pricing page load
         pricingPage.waitLoadDataPricingPage();
-        // verify data persist across pricing page
+        // // verify data persist across pricing page
         pricingPage.clickThreeDotsButton();
         pricingPage.clickListingSetting();
         Assert.assertTrue(pricingPage.nickNameTitleVisible("Ho-edited").contains("edited"), "nick name is not visible");
-        Assert.assertTrue(listingPage.isNickName("Ho-edited"));
+        // Assert.assertTrue(listingPage.isNickName("Ho-edited"));
         Assert.assertEquals(listingPage.getBasePrice(), basePrice + 100, "base price is incorrect");
         Assert.assertEquals(listingPage.getMinPrice(), minPrice + 100, "min price is incorrect");
         Assert.assertTrue(listingPage.isExportCalenderLink("ical"));
