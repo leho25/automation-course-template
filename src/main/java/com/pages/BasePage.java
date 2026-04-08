@@ -42,6 +42,9 @@ public class BasePage {
     public Boolean waitElementInVisiable(WebElement element) {
         return this.wait.until(ExpectedConditions.invisibilityOf(element));
     }
+    public Boolean waitTextPrensenInElement(By by,String text){
+        return this.wait.until(ExpectedConditions.textToBePresentInElementLocated(by, text));
+    }
 
     public WebElement waitElementVisible(By by) {
         return this.wait.until(ExpectedConditions.visibilityOfElementLocated(by));

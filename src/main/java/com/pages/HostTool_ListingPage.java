@@ -34,7 +34,9 @@ public class HostTool_ListingPage extends BasePage {
     public String openModalSuccessfully() {
         return waitElementVisible(nameBreadcrumb).getText();
     }
-
+    public void processClickSuccess(String text){
+        waitTextPrensenInElement(saveButton, text);
+    }
     public Boolean titleModalDisplay() {
         return waitElementVisible(titleModal).isDisplayed();
     }

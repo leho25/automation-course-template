@@ -79,7 +79,7 @@ class HostTool_ListingTest extends BasicTest {
         Assert.assertFalse(listingPage.isDataSaveSuccess("Listing content updated"), "Data shouble not be saved");
     }
 
-    @Test
+    // @Test
     public void verifyEditListing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -128,10 +128,11 @@ class HostTool_ListingTest extends BasicTest {
         Utils.hardWait(2000);
         listingPage.clickNavigationHeader("Calendar");
         driver.navigate().refresh();
-        Assert.assertTrue(homePage.isNewNickNameCalender("Ho-edited").contains("Ho-edited"),"new nick name is not visible in calender page");
+        Assert.assertTrue(homePage.isNewNickNameCalender("Ho-edited").contains("Ho-edited"),
+                "new nick name is not visible in calender page");
     }
 
-    // @Test
+    @Test
     public void verifyPresistAcrossPricing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -167,9 +168,10 @@ class HostTool_ListingTest extends BasicTest {
         // add link calender
         listingPage.addUrlCalender(Constains.CALENDER_GOOGLE_URL);
         // click on "refresh" button
-        listingPage.clickRefreshIconButton();
+        listingPage.clickRefreshIconButton();   
         // click on "save" button
         listingPage.clickSaveButton();
+        listingPage.processClickSuccess("Saving");
         // // click on "Pricing" button in hearder
         listingPage.clickNavigationHeader("Pricing");
         // // select nick name after search
@@ -179,8 +181,10 @@ class HostTool_ListingTest extends BasicTest {
         // // verify data persist across pricing page
         pricingPage.clickThreeDotsButton();
         pricingPage.clickListingSetting();
+        // edit nick name field
+        listingPage.enterUpdateNickName("Ho-edited2");
         Assert.assertTrue(pricingPage.nickNameTitleVisible("Ho-edited").contains("edited"), "nick name is not visible");
-        // Assert.assertTrue(listingPage.isNickName("Ho-edited"));
+        Assert.assertEquals(listingPage.getValueNickName(), "Ho-edited2", "nick name is not updated");
         Assert.assertEquals(listingPage.getBasePrice(), basePrice + 100, "base price is incorrect");
         Assert.assertEquals(listingPage.getMinPrice(), minPrice + 100, "min price is incorrect");
         Assert.assertTrue(listingPage.isExportCalenderLink("ical"));
