@@ -132,7 +132,7 @@ class HostTool_ListingTest extends BasicTest {
                 "new nick name is not visible in calender page");
     }
 
-    @Test
+    @Test(priority = 1)
     public void verifyPresistAcrossPricing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -168,7 +168,7 @@ class HostTool_ListingTest extends BasicTest {
         // add link calender
         listingPage.addUrlCalender(Constains.CALENDER_GOOGLE_URL);
         // click on "refresh" button
-        listingPage.clickRefreshIconButton();   
+        listingPage.clickRefreshIconButton();
         // click on "save" button
         listingPage.clickSaveButton();
         listingPage.processClickSuccess("Saving");
@@ -183,11 +183,57 @@ class HostTool_ListingTest extends BasicTest {
         pricingPage.clickListingSetting();
         // edit nick name field
         listingPage.enterUpdateNickName("Ho-edited2");
+        // click on "save" button
+        listingPage.clickSaveButton();
+        listingPage.processClickSuccess("Saving");
+        // listingPage.listItems();
         Assert.assertTrue(pricingPage.nickNameTitleVisible("Ho-edited").contains("edited"), "nick name is not visible");
         Assert.assertEquals(listingPage.getValueNickName(), "Ho-edited2", "nick name is not updated");
         Assert.assertEquals(listingPage.getBasePrice(), basePrice + 100, "base price is incorrect");
         Assert.assertEquals(listingPage.getMinPrice(), minPrice + 100, "min price is incorrect");
         Assert.assertTrue(listingPage.isExportCalenderLink("ical"));
         Assert.assertTrue(listingPage.urlCalenderExists(Constains.CALENDER_GOOGLE_URL));
+
+    }
+
+    @Test(priority = 1)
+    public void verifyRestoreListingSetting() {
+        // Oen HostTool login page
+        String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
+        String homeUrl = Constains.HOSTTOOLS_HOME_URL;
+        HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
+        HostTool_MessagePage homePage = new HostTool_MessagePage(driver);
+        HostTool_ListingPage listingPage = new HostTool_ListingPage(driver);
+        HostTool_PricingPage pricingPage = new HostTool_PricingPage(driver);
+        loginPage.open(loginUrl);
+        // Login with valid credentials
+        loginPage.enterEmail("cypress@hosttools.com");
+        loginPage.enterPassword("QQ2giQUXuHUf6JZMM*eruF");
+        loginPage.clickLoginButton();
+        loginPage.navigateToHomePage(homeUrl);
+        // wait for homepage loadss
+        homePage.waitForHomePageLoad();
+        // select random
+        homePage.selectRandomListing();
+        // select 'Listing Settings' option from dropdown
+        homePage.cickListingsDropdown("Listing Settings");
+        String url = listingPage.getCurrentUrl();
+        String id = url.split("/listings/")[1].split("\\?")[0];
+        System.out.println("Extracted ID from URL: " + id);
+        listingPage.clickEnableListing();
+        listingPage.clickMessageOnly();
+        listingPage.enterUpdateNickName("");
+        listingPage.enterUpdateBasePrice(500);
+        listingPage.enterUpdateMinPrice(300);
+        listingPage.enterUpdateMinNight(10);
+        listingPage.clickDeleteUrlCalender();
+        listingPage.clickSaveButton();
+        listingPage.processClickSuccess("Saving");
+        listingPage.clickNavigationHeader("Listings");
+        listingPage.navigationListingSettingItem(id);
+        Assert.assertTrue(listingPage.getValueNickName().isEmpty());
+        Assert.assertTrue(listingPage.getBasePrice() == 500);
+        Assert.assertTrue(listingPage.getMinPrice() == 300);
+        Assert.assertTrue(listingPage.getMinNight() == 10);
     }
 }

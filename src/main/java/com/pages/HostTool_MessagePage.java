@@ -46,6 +46,7 @@ public class HostTool_MessagePage extends BasePage {
         return listingName;
     }
 
+
     public void cickListingsDropdown(String options) {
         By optionDropdow = By.xpath("//span[text()='" + options + "']");
         clickElementJS(optionDropdow);

@@ -1,8 +1,11 @@
 package com.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class HostTool_ListingPage extends BasePage {
     public HostTool_ListingPage(WebDriver driver) {
@@ -30,7 +33,12 @@ public class HostTool_ListingPage extends BasePage {
     By urlCalenderLink = By.xpath("//a[@data-testid='link-url']");
     By nameListingElement = By.xpath("//span[@data-testid='listing-title']");
     By searchListingInput = By.xpath("//input[@data-testid='input-search-listing']");
-
+    By linkListingSetting = By.xpath("//a[@href='/settings/listings']");
+    public void navigationListingSettingItem(String id){
+        String urlItem = "https://beta.hosttools.com/settings/listings/" + id;
+        System.out.println("urlItem: " + urlItem);
+        open(urlItem);
+    }
     public String openModalSuccessfully() {
         return waitElementVisible(nameBreadcrumb).getText();
     }
@@ -97,6 +105,7 @@ public class HostTool_ListingPage extends BasePage {
     public void enterUpdateNickName(String nickName) {
 
         String value = waitElementVisible(nickNameInput).getAttribute("value");
+        System.out.println("value: " + value);
         if (value.isEmpty()) {
             enterText(nickNameInput, nickName);
         } else {
@@ -105,7 +114,9 @@ public class HostTool_ListingPage extends BasePage {
         }
         waitElementVisible(nickNameInput).sendKeys(Keys.ENTER);
     }
-
+    public void clickDeleteUrlCalender() {
+        clickElementJS(deleteUrlButton);
+    }
     public String getValueNickName() {
         return waitElementVisible(nickNameInput).getAttribute("value");
     }
@@ -117,6 +128,10 @@ public class HostTool_ListingPage extends BasePage {
 
     public int getBasePrice() {
         String value = waitElementVisible(basePriceInput).getAttribute("value");
+        return value.isEmpty() ? 0 : Integer.parseInt(value);
+    }
+     public int getMinNight() {
+        String value = waitElementVisible(minNightInput).getAttribute("value");
         return value.isEmpty() ? 0 : Integer.parseInt(value);
     }
 
