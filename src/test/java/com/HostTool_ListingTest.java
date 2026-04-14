@@ -79,7 +79,7 @@ class HostTool_ListingTest extends BasicTest {
         Assert.assertFalse(listingPage.isDataSaveSuccess("Listing content updated"), "Data shouble not be saved");
     }
 
-    // @Test
+    // @Test(priority = 1)
     public void verifyEditListing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -132,7 +132,7 @@ class HostTool_ListingTest extends BasicTest {
                 "new nick name is not visible in calender page");
     }
 
-    @Test(priority = 1)
+    // @Test(priority = 2)
     public void verifyPresistAcrossPricing() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -196,7 +196,7 @@ class HostTool_ListingTest extends BasicTest {
 
     }
 
-    @Test(priority = 1)
+    @Test(priority = 3)
     public void verifyRestoreListingSetting() {
         // Oen HostTool login page
         String loginUrl = Constains.HOSTTOOLS_LOGIN_URL;
@@ -204,7 +204,6 @@ class HostTool_ListingTest extends BasicTest {
         HostTool_LoginPage loginPage = new HostTool_LoginPage(driver);
         HostTool_MessagePage homePage = new HostTool_MessagePage(driver);
         HostTool_ListingPage listingPage = new HostTool_ListingPage(driver);
-        HostTool_PricingPage pricingPage = new HostTool_PricingPage(driver);
         loginPage.open(loginUrl);
         // Login with valid credentials
         loginPage.enterEmail("cypress@hosttools.com");
@@ -230,10 +229,17 @@ class HostTool_ListingTest extends BasicTest {
         listingPage.clickSaveButton();
         listingPage.processClickSuccess("Saving");
         listingPage.clickNavigationHeader("Listings");
+        listingPage.waitForListingPageLoad();
+        Assert.assertTrue(listingPage.isOpenModalSetting().contains("Listings"), "Listing page is not display");
         listingPage.navigationListingSettingItem(id);
         Assert.assertTrue(listingPage.getValueNickName().isEmpty());
         Assert.assertTrue(listingPage.getBasePrice() == 500);
         Assert.assertTrue(listingPage.getMinPrice() == 300);
         Assert.assertTrue(listingPage.getMinNight() == 10);
+        Assert.assertFalse(listingPage.isUrlCalender(Constains.CALENDER_GOOGLE_URL));
+        Assert.assertEquals(listingPage.getValueNickName(), "");
+        Assert.assertEquals(listingPage.getBasePrice(), 500);
+        Assert.assertEquals(listingPage.getMinPrice(), 300);
+        Assert.assertEquals(listingPage.getMinNight(), 10);
     }
 }

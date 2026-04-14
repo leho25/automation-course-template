@@ -34,17 +34,31 @@ public class HostTool_ListingPage extends BasePage {
     By nameListingElement = By.xpath("//span[@data-testid='listing-title']");
     By searchListingInput = By.xpath("//input[@data-testid='input-search-listing']");
     By linkListingSetting = By.xpath("//a[@href='/settings/listings']");
-    public void navigationListingSettingItem(String id){
+    By titleListingSetting = By.xpath("//div[contains(@class,'items-baseline')]");
+
+    public void waitForListingPageLoad() {
+        waitElementVisible(titleListingSetting);
+    }
+
+    public String isOpenModalSetting() {
+        System.out.println("wait for open modal" + waitElementVisible(titleListingSetting).getText());
+        return waitElementVisible(titleListingSetting).getText();
+    }
+
+    public void navigationListingSettingItem(String id) {
         String urlItem = "https://beta.hosttools.com/settings/listings/" + id;
         System.out.println("urlItem: " + urlItem);
         open(urlItem);
     }
+
     public String openModalSuccessfully() {
         return waitElementVisible(nameBreadcrumb).getText();
     }
-    public void processClickSuccess(String text){
+
+    public void processClickSuccess(String text) {
         waitTextPrensenInElement(saveButton, text);
     }
+
     public Boolean titleModalDisplay() {
         return waitElementVisible(titleModal).isDisplayed();
     }
@@ -114,9 +128,11 @@ public class HostTool_ListingPage extends BasePage {
         }
         waitElementVisible(nickNameInput).sendKeys(Keys.ENTER);
     }
+
     public void clickDeleteUrlCalender() {
         clickElementJS(deleteUrlButton);
     }
+
     public String getValueNickName() {
         return waitElementVisible(nickNameInput).getAttribute("value");
     }
@@ -130,7 +146,8 @@ public class HostTool_ListingPage extends BasePage {
         String value = waitElementVisible(basePriceInput).getAttribute("value");
         return value.isEmpty() ? 0 : Integer.parseInt(value);
     }
-     public int getMinNight() {
+
+    public int getMinNight() {
         String value = waitElementVisible(minNightInput).getAttribute("value");
         return value.isEmpty() ? 0 : Integer.parseInt(value);
     }
@@ -200,8 +217,13 @@ public class HostTool_ListingPage extends BasePage {
     }
 
     public Boolean isUrlCalender(String url) {
-        By urlCalenderItem = By.xpath("//span[text()='" + url + "']");
-        return waitElementVisible(urlCalenderItem).getText().contains(url);
+        try {
+            By urlCalenderItem = By.xpath("//span[text()='" + url + "']");
+            return waitElementVisible(urlCalenderItem).getText().contains(url);
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     public Boolean isExportCalenderLink(String url) {
@@ -212,7 +234,7 @@ public class HostTool_ListingPage extends BasePage {
         By calenderHeader = By.xpath("//span[text()='" + hearder + "']");
         clickElement(calenderHeader);
     }
-    
+
     public void enterSearchListing(String search) {
         enterText(searchListingInput, search);
     }
